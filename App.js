@@ -12,53 +12,19 @@ import store from './redux'
 
 const Stack = createStackNavigator()
 
-function getHeaderTitle (route) {
-  const routeName = route.state
-    ? route.state.routes[route.state.index].name
-    : route.params?.screen || 'Explore'
-
-  switch (routeName) {
-    case 'Explore':
-      return 'Explore sd'
-    case 'Saved':
-      return 'Saved'
-    case 'Profile':
-      return 'Profile'
-    case 'Inbox':
-      return 'Inbox'
-    case 'Bag':
-      return 'Bag'
-    case 'Login':
-      return 'Login'
-  }
-}
-
 function MyStack () {
   return (
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
-            name='Home' component={
-            ({ navigation }) =>
-              <TouchableOpacity onPress={() => navigation.push('Notifications')} style={styles.container}>
-                <$PayContainer />
-                <Text>Home</Text>
-                <DispatchButton />
-              </TouchableOpacity>
-          }
+            name='Home' component={Home}
             options={({ route }) => ({
-              headerTitle: getHeaderTitle(route),
               headerShown: false
             })}
           />
           <Stack.Screen
-            name='Notifications' component={
-            ({ navigation }) =>
-              <TouchableOpacity onPress={() => navigation.push('Home')}>
-                <Text>Notifications</Text>
-              </TouchableOpacity>
-          }
+            name='Notifications' component={Notifications}
           />
         </Stack.Navigator>
       </NavigationContainer>
@@ -66,13 +32,25 @@ function MyStack () {
   )
 }
 
+const Notifications = ({ navigation }) =>
+  <TouchableOpacity onPress={() => navigation.push('Home')}>
+    <Text>Notifications</Text>
+  </TouchableOpacity>
+
+const Home = ({ navigation }) =>
+  <TouchableOpacity onPress={() => navigation.push('Notifications')} style={styles.container}>
+    <$PayContainer />
+    <Text>Home</Text>
+    <DispatchButton />
+  </TouchableOpacity>
+
 const DispatchButton = () => {
   const dispatch = useDispatch()
   const state = useSelector(state => state)
 
   useEffect(() => {
     async function fetchData () {
-      const response = await fetch('http://172.20.10.2:8080')
+      const response = await fetch('http://172.20.10.2:8090')
       const { name } = await response.json()
       dispatch({ type: 'HELLO', payload: name })
     }
