@@ -8,6 +8,27 @@ import { createStackNavigator } from '@react-navigation/stack'
 
 const Stack = createStackNavigator()
 
+function getHeaderTitle (route) {
+  const routeName = route.state
+    ? route.state.routes[route.state.index].name
+    : route.params?.screen || 'Explore'
+
+  switch (routeName) {
+    case 'Explore':
+      return 'Explore sd'
+    case 'Saved':
+      return 'Saved'
+    case 'Profile':
+      return 'Profile'
+    case 'Inbox':
+      return 'Inbox'
+    case 'Bag':
+      return 'Bag'
+    case 'Login':
+      return 'Login'
+  }
+}
+
 function MyStack () {
   return (
     <NavigationContainer>
@@ -20,6 +41,10 @@ function MyStack () {
                 <Text>Home</Text>
               </TouchableOpacity>
           }
+          options={({ route }) => ({
+            headerTitle: getHeaderTitle(route),
+            headerShown: false
+          })}
         />
         <Stack.Screen
           name='Notifications' component={
@@ -43,7 +68,7 @@ export default function App () {
 const $PayContainer = styled.TouchableOpacity`
   flexDirection: row;
   alignItems: center;
-  marginBottom: 20;
+  marginBottom: 20px;
 `
 
 const styles = StyleSheet.create({
