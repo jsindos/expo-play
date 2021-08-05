@@ -61,10 +61,12 @@ const Notifications = ({ navigation }) =>
     <Text>Notifications</Text>
   </TouchableOpacity>
 
+const Hello = () => <Text>'Hello'</Text>
+
 const screens = {
   screens: [{
     title: 'A',
-    screen: () => <Text>'Hello'</Text>
+    screen: Hello
   }]
 }
 
@@ -76,7 +78,7 @@ const Home = ({ navigation }) =>
     </TouchableOpacity>
     <TouchableOpacity onPress={() => navigation.navigate('BaseModal', { screens })} style={styles.container}>
       <$PayContainer />
-      <Text>Modal</Text>
+      <Text>GenericModal</Text>
     </TouchableOpacity>
     <DispatchButton />
   </>
