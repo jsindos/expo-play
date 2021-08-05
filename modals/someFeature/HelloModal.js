@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Text, TouchableOpacity, StyleSheet } from 'react-native'
 
-import { ModalNavigator } from './GenericModal'
+import { ModalNavigator } from '../GenericModal'
 
 const HelloModal = () => {
   const modalNavigator = useContext(ModalNavigator)

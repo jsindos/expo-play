@@ -9,8 +9,7 @@ import * as Font from 'expo-font'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
-import HelloModal from './modals/HelloModal'
-import WorldModal from './modals/WorldModal'
+import screens from './modals/someFeature/screens'
 import GenericModal from './modals/GenericModal'
 import options from './modals/options'
 import store from './redux'
@@ -63,19 +62,6 @@ const Notifications = ({ navigation }) =>
   </TouchableOpacity>
 
 // const Hello = () => <Text>'Hello'</Text>
-
-const screens = {
-  screens: [
-    {
-      title: 'A',
-      screen: HelloModal
-    },
-    {
-      title: 'B',
-      screen: WorldModal
-    }
-  ]
-}
 
 const Home = ({ navigation }) =>
   <>
