@@ -1,8 +1,10 @@
 /* global fetch */
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { Provider, useDispatch, useSelector } from 'react-redux'
+import AppLoading from 'expo-app-loading'
+import * as Font from 'expo-font'
 
 import styled from 'styled-components/native'
 import { NavigationContainer } from '@react-navigation/native'
@@ -59,12 +61,25 @@ const Notifications = ({ navigation }) =>
     <Text>Notifications</Text>
   </TouchableOpacity>
 
+const screens = {
+  screens: [{
+    title: 'A',
+    screen: () => <Text>'Hello'</Text>
+  }]
+}
+
 const Home = ({ navigation }) =>
-  <TouchableOpacity onPress={() => navigation.push('Notifications')} style={styles.container}>
-    <$PayContainer />
-    <Text>Home</Text>
+  <>
+    <TouchableOpacity onPress={() => navigation.push('Notifications')} style={styles.container}>
+      <$PayContainer />
+      <Text>Home</Text>
+    </TouchableOpacity>
+    <TouchableOpacity onPress={() => navigation.navigate('BaseModal', { screens })} style={styles.container}>
+      <$PayContainer />
+      <Text>Modal</Text>
+    </TouchableOpacity>
     <DispatchButton />
-  </TouchableOpacity>
+  </>
 
 const DispatchButton = () => {
   const dispatch = useDispatch()
@@ -87,7 +102,27 @@ const DispatchButton = () => {
   )
 }
 
+const fetchFonts = () => {
+  return Font.loadAsync({
+    'OpenSans-Bold': require('./assets/fonts/OpenSans-Bold.ttf'),
+    'OpenSans-ExtraBold': require('./assets/fonts/OpenSans-ExtraBold.ttf'),
+    'OpenSans-Regular': require('./assets/fonts/OpenSans-Regular.ttf'),
+    'OpenSans-SemiBold': require('./assets/fonts/OpenSans-SemiBold.ttf')
+  })
+}
+
 export default function App () {
+  const [dataLoaded, setDataLoaded] = useState(false)
+
+  if (!dataLoaded) {
+    return (
+      <AppLoading
+        startAsync={fetchFonts}
+        onFinish={() => setDataLoaded(true)}
+        onError={console.warn} // eslint-disable-line react/jsx-handler-names
+      />
+    )
+  }
   return (
     <MyStack />
   )
