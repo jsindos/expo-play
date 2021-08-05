@@ -6,10 +6,11 @@ import { Provider, useDispatch, useSelector } from 'react-redux'
 import AppLoading from 'expo-app-loading'
 import * as Font from 'expo-font'
 
-import styled from 'styled-components/native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
+import HelloModal from './modals/HelloModal'
+import WorldModal from './modals/WorldModal'
 import GenericModal from './modals/GenericModal'
 import options from './modals/options'
 import store from './redux'
@@ -61,23 +62,27 @@ const Notifications = ({ navigation }) =>
     <Text>Notifications</Text>
   </TouchableOpacity>
 
-const Hello = () => <Text>'Hello'</Text>
+// const Hello = () => <Text>'Hello'</Text>
 
 const screens = {
-  screens: [{
-    title: 'A',
-    screen: Hello
-  }]
+  screens: [
+    {
+      title: 'A',
+      screen: HelloModal
+    },
+    {
+      title: 'B',
+      screen: WorldModal
+    }
+  ]
 }
 
 const Home = ({ navigation }) =>
   <>
     <TouchableOpacity onPress={() => navigation.push('Notifications')} style={styles.container}>
-      <$PayContainer />
       <Text>Home</Text>
     </TouchableOpacity>
     <TouchableOpacity onPress={() => navigation.navigate('BaseModal', { screens })} style={styles.container}>
-      <$PayContainer />
       <Text>GenericModal</Text>
     </TouchableOpacity>
     <DispatchButton />
@@ -129,12 +134,6 @@ export default function App () {
     <MyStack />
   )
 }
-
-const $PayContainer = styled.TouchableOpacity`
-  flexDirection: row;
-  alignItems: center;
-  marginBottom: 20px;
-`
 
 const styles = StyleSheet.create({
   container: {
