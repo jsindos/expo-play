@@ -8,29 +8,51 @@ import styled from 'styled-components/native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
+import GenericModal from './modals/GenericModal'
+import options from './modals/options'
 import store from './redux'
 
-const Stack = createStackNavigator()
+const MainStack = createStackNavigator()
+const SubStack = createStackNavigator()
 
 function MyStack () {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name='Home' component={Home}
-            options={({ route }) => ({
-              headerShown: false
-            })}
+        <MainStack.Navigator
+          mode='modal'
+          headerMode='none'
+          screenOptions={{
+            headerShown: false
+          }}
+        >
+          <MainStack.Screen
+            name='Main'
+            component={SubNavigator}
           />
-          <Stack.Screen
-            name='Notifications' component={Notifications}
+          <MainStack.Screen
+            name='BaseModal'
+            component={GenericModal}
+            options={options}
           />
-        </Stack.Navigator>
+        </MainStack.Navigator>
       </NavigationContainer>
     </Provider>
   )
 }
+
+const SubNavigator = () =>
+  <SubStack.Navigator>
+    <SubStack.Screen
+      name='Home' component={Home}
+      options={({ route }) => ({
+        headerShown: false
+      })}
+    />
+    <SubStack.Screen
+      name='Notifications' component={Notifications}
+    />
+  </SubStack.Navigator>
 
 const Notifications = ({ navigation }) =>
   <TouchableOpacity onPress={() => navigation.push('Home')}>
