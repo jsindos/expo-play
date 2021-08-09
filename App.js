@@ -9,10 +9,7 @@ import * as Font from 'expo-font'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
-import screens from './modals/someFeature/screens'
-import GenericModal from './modals/GenericModal'
 import ModalNavigator from './modals/ModalNavigator'
-import options from './modals/options'
 import store from './redux'
 
 const MainStack = createStackNavigator()
@@ -32,11 +29,6 @@ function MyStack () {
           <MainStack.Screen
             name='Main'
             component={SubNavigator}
-          />
-          <MainStack.Screen
-            name='BaseModal'
-            component={GenericModal}
-            options={options}
           />
           <MainStack.Screen
             name='Modal'
@@ -79,9 +71,6 @@ const Home = ({ navigation }) =>
   <>
     <TouchableOpacity onPress={() => navigation.push('Notifications')} style={styles.container}>
       <Text>Home</Text>
-    </TouchableOpacity>
-    <TouchableOpacity onPress={() => navigation.navigate('BaseModal', { screens })} style={styles.container}>
-      <Text>GenericModal</Text>
     </TouchableOpacity>
     <TouchableOpacity onPress={() => navigation.navigate('Modal')} style={styles.container}>
       <Text>Modal</Text>
