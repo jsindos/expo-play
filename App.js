@@ -11,6 +11,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 
 import screens from './modals/someFeature/screens'
 import GenericModal from './modals/GenericModal'
+import ModalNavigator from './modals/ModalNavigator'
 import options from './modals/options'
 import store from './redux'
 
@@ -36,6 +37,17 @@ function MyStack () {
             name='BaseModal'
             component={GenericModal}
             options={options}
+          />
+          <MainStack.Screen
+            name='Modal'
+            options={{
+              cardStyle: {
+                backgroundColor: 'transparent',
+                gestureEnabled: 'true'
+                // opacity: 0.99
+              }
+            }}
+            component={ModalNavigator}
           />
         </MainStack.Navigator>
       </NavigationContainer>
@@ -70,6 +82,9 @@ const Home = ({ navigation }) =>
     </TouchableOpacity>
     <TouchableOpacity onPress={() => navigation.navigate('BaseModal', { screens })} style={styles.container}>
       <Text>GenericModal</Text>
+    </TouchableOpacity>
+    <TouchableOpacity onPress={() => navigation.navigate('Modal')} style={styles.container}>
+      <Text>Modal</Text>
     </TouchableOpacity>
     <DispatchButton />
   </>
